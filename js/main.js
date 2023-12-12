@@ -298,21 +298,21 @@ window.addEventListener('keydown', (event) => {
 })
 
 /*Scroll Up*/
-// const $btnScroll = document.querySelector('.scroll-up');
-// const offset = 500;
-// const scroll = () => window.scrollY || document.documentElement.scrollTop
+const $btnScroll = document.querySelector('.scroll-up');
+const offset = 500;
+const scroll = () => window.scrollY || document.documentElement.scrollTop
 
-// window.addEventListener('scroll', () => {
-//   if (scroll() > offset) {
-//     $btnScroll.classList.add('scroll-up__active')
-//   } else {
-//     $btnScroll.classList.remove('scroll-up__active')
-//   };
-// });
+window.addEventListener('scroll', () => {
+  if (scroll() > offset) {
+    $btnScroll.classList.add('scroll-up__active')
+  } else {
+    $btnScroll.classList.remove('scroll-up__active')
+  };
+});
 
-// $btnScroll.addEventListener('click', () => {
-//   window.scrollTo({
-//     top: 0,
-//     behavior: 'smooth'
-//   });
-// });
+$btnScroll.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
