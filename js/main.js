@@ -20,10 +20,10 @@ window.addEventListener('keydown', (event) => {
 
 // Слайдер секции Hero
 const swiperHero = new Swiper('.hero__swiper', {
-    // autoplay: {
-    //     delay: 2500,
-    //     disableOnInteraction: false,
-    //   },
+    autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
     loop: true,
     pagination: {
       el: '.hero__pagination',
@@ -90,7 +90,7 @@ $servicesBtn.forEach(btn => {
 const swiperServices = new Swiper('.services__list', {
       loop: true,
       slidesPerView: 1,
-      spaceBetween: 30,
+      // spaceBetween: 30,
       breakpoints: {
         1024: {
           slidesPerView: 4,
@@ -127,16 +127,28 @@ const swiperPortfolio = new Swiper('.portfolio__swiper', {
     nextEl: '.tabs__btn-next',
     prevEl: '.tabs__btn-prev',
   },
+  pagination: {
+    el: '.portfolio__pagination',
+  },
   on: {
     init: function (swiper) {
-      const $allSlide = document.querySelector('.tabs__text-all');
-      $allSlide.innerHTML = swiper.slides.length < 10 ? swiper.slides.length : swiper.slides.length;    
-      let $currentSlide = document.querySelector('.tabs__text-current');      
-      $currentSlide.innerHTML = '1' 
+      // Для пагинации
+      const $allSlide = document.querySelector('.portfolio-all');      
+      $allSlide.innerHTML = swiper.slides.length < 10 ? `0${swiper.slides.length}` : swiper.slides.length;  
+      let $currentSlide = document.querySelector('.portfolio-current');      
+      $currentSlide.innerHTML = '01' 
+      // Для навигации  
+      const $allSlideTabs = document.querySelector('.tabs__text-all');
+      $allSlideTabs.innerHTML = swiper.slides.length < 10 ? swiper.slides.length : swiper.slides.length; 
+      let $currentSlideTabs = document.querySelector('.tabs__text-current');      
+      $currentSlideTabs.innerHTML = '1' 
     },
     slideChange: function (swiper) {
-      let $currentSlide = document.querySelector('.tabs__text-current');      
-      $currentSlide.innerHTML = swiper.realIndex + 1 < 10 ? swiper.realIndex + 1 : swiper.realIndex + 1;
+      let $currentSlide = document.querySelector('.portfolio-current');      
+      $currentSlide.innerHTML = swiper.realIndex + 1 < 10 ? `0${swiper.realIndex + 1}` : swiper.realIndex + 1;
+
+      let $currentSlideTabs = document.querySelector('.tabs__text-current');      
+      $currentSlideTabs.innerHTML = swiper.realIndex + 1 < 10 ? swiper.realIndex + 1 : swiper.realIndex + 1;
         
     }
   }
