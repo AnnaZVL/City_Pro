@@ -23,10 +23,11 @@ const swiperHero = new Swiper('.hero__swiper', {
     autoplay: {
         delay: 2500,
         disableOnInteraction: false,
-      },
+      },   
     loop: true,
     pagination: {
       el: '.hero__pagination',
+      clickable: true,
     },
     on: {
       init: function (swiper) {
@@ -46,44 +47,21 @@ const $btnMore = document.getElementById('more'),
 $block = document.querySelector('.about__top');
 
 $btnMore.addEventListener('click', () => {
-  $block.classList.add('open');
-  $btnMore.style.display = 'none'
+  $block.classList.toggle('open');  
+  $btnMore.classList.toggle('open')
 })
 
-/*Смена кнопки на ссылку в 3 блоке*/
-const $servicesBtn = document.querySelectorAll('.card__btn'),
-    $servicesLink = document.querySelectorAll('.card__link'),
-    $servicesCard = document.querySelectorAll('.card');
-
-$servicesBtn.forEach(btn => {
-  btn.addEventListener('click', (event) => {
-    $servicesLink.forEach(link => {  
-      link.classList.remove('open')
-    });
-      $servicesCard.forEach(card => {
-        card.classList.remove('open');
-    });  
-
-    const $currentCard = event.currentTarget.closest('.card');
-    const $currentLink = $currentCard.querySelector('.card__link');
-
-    $currentLink.classList.toggle('open');
-    $currentCard.classList.toggle('open');
-
-    $currentLink.addEventListener('click', () => {
-      $currentLink.classList.remove('open');
-      $currentCard.classList.remove('open');    
-    });    
-  });
-});
-
-  /* Больше текста в блоке Портфолио*/
+/* Больше текста в блоке Портфолио*/
   const $btnMorePortfolio = document.getElementById('more-portfolio'),
-  $blockPortfolio = document.querySelector('.portfolio__card');
+  $pagin = document.querySelector('.portfolio__pagination-box'),
+  $blockPortfolio = document.querySelectorAll('.portfolio__card');
   
   $btnMorePortfolio.addEventListener('click', () => {
-    $blockPortfolio.classList.add('open');
-    $btnMorePortfolio.style.display = 'none'
+    $blockPortfolio.forEach(el => {
+      el.classList.toggle('open');
+    })    
+    $pagin.classList.toggle('open');
+    $btnMorePortfolio.classList.toggle('open');
   })
 
 // Слайдер секции Услуги
@@ -107,6 +85,7 @@ const swiperServices = new Swiper('.services__list', {
       },
   pagination: {
     el: '.services__pagination',
+    clickable: true,
   },
   on: {
     init: function (swiper) {
@@ -129,6 +108,7 @@ const swiperPortfolio = new Swiper('.portfolio__swiper', {
   },
   pagination: {
     el: '.portfolio__pagination',
+    clickable: true,
   },
   on: {
     init: function (swiper) {
@@ -228,6 +208,7 @@ function init(){
 
 const $btnModalOpen = document.querySelectorAll('[data-modal="true"]'),
     $modal = document.querySelector('.modal'),
+    $modalBody = document.querySelector('.modal__body'),
     $btnModalClose = document.querySelector('.modal__btn-icon');
 
 $btnModalOpen.forEach(button => {
@@ -237,10 +218,19 @@ $btnModalOpen.forEach(button => {
   });
 });
 
+// Закрытие по клику на кнопку х
 $btnModalClose.addEventListener('click', () => {
   $modal.classList.remove('open');
   $wrapper.classList.remove('scroll-stop');
 });
+
+// Закрытие по клику вне модалки
+$modal.addEventListener('click', (event) => {
+  if (!event.target.closest('.modal__body')) {
+    $modal.classList.remove('open');
+    $wrapper.classList.remove('scroll-stop');
+  }
+})
 
 const $formModal = document.querySelector('.modal__form'),
     $inputsModal = document.querySelectorAll('.modal__input');
